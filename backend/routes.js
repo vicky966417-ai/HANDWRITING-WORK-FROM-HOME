@@ -10,13 +10,27 @@ router.get("/", (req, res) => {
 
 router.post("/register", (req, res) => {
 
+    const registration = {
+        fullName: req.body.fullName,
+        mobile: req.body.mobile,
+        houseNo: req.body.houseNo,
+        area: req.body.area,
+        city: req.body.city,
+        district: req.body.district,
+        pinCode: req.body.pinCode,
+        state: req.body.state,
+        fee: req.body.fee,
+        status: "Pending"
+    };
+
+    console.log(registration);
+
     res.json({
         success: true,
-        status: "Pending",
-        message: "Registration Submitted Successfully"
+        message: "Registration Submitted Successfully",
+        data: registration
     });
 
 });
 
 module.exports = router;
-
