@@ -203,3 +203,32 @@ width:100%;
 }
 
 }
+.registration{
+    max-width:700px;
+    margin:40px auto;
+    padding:20px;
+    background:#fff;
+    border-radius:10px;
+}
+
+.registration input,
+.registration button{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+}
+
+.registration img{
+    display:block;
+    margin:20px auto;
+    max-width:250px;
+}
+
+.registration button{
+    background:#0a7cff;
+    color:white;
+    border:none;
+    border-radius:6px;
+    font-size:16px;
+    cursor:pointer;
+}
