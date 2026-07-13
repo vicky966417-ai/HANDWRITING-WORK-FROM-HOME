@@ -16,7 +16,7 @@ form.addEventListener("submit", async (e) => {
     };
 
     try {
-        const response = await fetch("/register", {
+        const response = await fetch("https://handwriting-work-from-home.onrender.com/api/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
