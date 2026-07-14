@@ -13,13 +13,10 @@ app.get("/", (req, res) => {
   });
 });
 
-app.post("/api/register", (req, res) => {
-  console.log(req.body);
-
+app.get("/api/register", (req, res) => {
   res.json({
     success: true,
-    status: "Pending",
-    message: "Registration Submitted Successfully"
+    message: "API Working"
   });
 });
 
