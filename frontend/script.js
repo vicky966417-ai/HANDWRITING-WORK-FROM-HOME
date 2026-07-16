@@ -18,6 +18,8 @@ form.addEventListener("submit", async (e) => {
     try {
         const response = await fetch("https://handwriting-work-from-home.onrender.com/api/register", {
             method: "POST",
+            console.log("Sending Data:", formData);
+console.log("API URL:", "https://handwriting-work-from-home.onrender.com/api/register");
             headers: {
                 "Content-Type": "application/json"
             },
