@@ -1,35 +1,76 @@
 const express = require("express");
 const router = express.Router();
 
+const db = require("./database");
+
 router.get("/", (req, res) => {
     res.json({
         success: true,
-        message: "HANDWRITING WORK FROM HOME API Running"
+        message: "API Working"
     });
 });
 
 router.post("/register", (req, res) => {
 
-    const registration = {
-        fullName: req.body.fullName,
-        mobile: req.body.mobile,
-        houseNo: req.body.houseNo,
-        area: req.body.area,
-        city: req.body.city,
-        district: req.body.district,
-        pinCode: req.body.pinCode,
-        state: req.body.state,
-        fee: req.body.fee,
-        status: "Pending"
-    };
+    const {
+        fullName,
+        mobile,
+        houseNo,
+        area,
+        city,
+        district,
+        pinCode,
+        state,
+        fee
+    } = req.body;
 
-    console.log(registration);
+    const registrationId = "HWH" + Date.now();
 
-    res.json({
-        success: true,
-        message: "Registration Submitted Successfully",
-        data: registration
-    });
+    db.run(
+        `
+        INSERT INTO registrations (
+            registrationId,
+            fullName,
+            mobile,
+            houseNo,
+            area,
+            city,
+            district,
+            pinCode,
+            state,
+            fee
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `,
+        [
+            registrationId,
+            fullName,
+            mobile,
+            houseNo,
+            area,
+            city,
+            district,
+            pinCode,
+            state,
+            fee
+        ],
+        function(err) {
+
+            if (err) {
+                return res.status(500).json({
+                    success: false,
+                    message: "Database Error"
+                });
+            }
+
+            res.json({
+                success: true,
+                registrationId,
+                status: "Pending",
+                message: "Registration Submitted Successfully"
+            });
+
+        }
+    );
 
 });
 
