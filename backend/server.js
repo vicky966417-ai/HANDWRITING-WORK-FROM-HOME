@@ -55,3 +55,64 @@ app.get("/", (req, res) => {
         message: "API Working Successfully"
     });
 });
+app.post("/api/register", upload.single("paymentScreenshot"), (req, res) => {
+
+    const {
+        fullName,
+        mobile,
+        houseNo,
+        area,
+        city,
+        district,
+        pinCode,
+        state,
+        fee
+    } = req.body;
+
+    const screenshot = req.file ? req.file.filename : "";
+
+    db.run(
+        `INSERT INTO registrations
+        (fullName,mobile,houseNo,area,city,district,pinCode,state,fee,screenshot,status)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?)`,
+        [
+            fullName,
+            mobile,
+            houseNo,
+            area,
+            city,
+            district,
+            pinCode,
+            state,
+            fee,
+            screenshot,
+            "Pending"
+        ],
+        function (err) {
+
+            if (err) {
+                return res.status(500).json({
+                    success: false,
+                    message: err.message
+                });
+            }
+
+            res.json({
+                success: true,
+                message: "Registration Submitted Successfully",
+                registrationId: this.lastID,
+                status: "Pending"
+            });
+
+        }
+    );
+
+});
+
+app.use("/uploads", express.static("uploads"));
+
+const PORT = process.env.PORT || 10000;
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
